@@ -10,7 +10,8 @@ export default class CovidData extends React.Component {
       countryArr: [],
       data: {},
       worldStats: {},
-      selectedCounty: ''
+      selectedCounty: '',
+      predictions: []
     };
     this.getData = this.getData.bind(this);
     this.backToGlobalNumbers = this.backToGlobalNumbers.bind(this);
@@ -47,6 +48,7 @@ export default class CovidData extends React.Component {
             }
           });
         });
+        console.log(data);
         this.setState({
           countryArr: countryArr,
           data: data,
@@ -76,6 +78,7 @@ export default class CovidData extends React.Component {
   }
   render() {
     const countryStats = this.state.data[this.state.selectedCountry];
+    const countryPredictions = this.state.predictions;
     const worldChart = this.state.worldChart;
     const lastUpdated =
       worldChart !== undefined ? worldChart[worldChart.length - 1].date : '';

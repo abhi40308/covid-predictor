@@ -24,15 +24,18 @@ export default class Charts extends React.Component {
         var confirmed = [];
         var recovered = [];
         var deaths = [];
-        var active = [];
+        // var active = [];
+        var daily = [];
+        let temp = 0;
         props.chartData.forEach(element => {
             dates.push(element.date);
              confirmed.push(element.confirmed);
              recovered.push(element.recovered);
              deaths.push(element.deaths);
              var sum =0;
-             active.push(sum+=element.confirmed-element.recovered-element.deaths)
-
+            //  active.push(sum+=element.confirmed-element.recovered-element.deaths);
+             daily.push(element.confirmed-temp);
+             temp = element.confirmed;
         });
         let pointRadius = 3;
         let padding = 50;
@@ -46,7 +49,8 @@ export default class Charts extends React.Component {
             this.myChart.data.datasets[0].data = confirmed;
             this.myChart.data.datasets[1].data = recovered;
             this.myChart.data.datasets[2].data = deaths;
-            this.myChart.data.datasets[3].data = active;
+            // this.myChart.data.datasets[3].data = active;
+            this.myChart.data.datasets[3].data = daily;
             this.myChart.options.title.text = props.selectedCountry;
             this.myChart.update();
         } else{ 
@@ -78,12 +82,12 @@ export default class Charts extends React.Component {
                         fill : false,
                         pointRadius : pointRadius
                     },{
-                        label: "Active",
-                        data : active,
+                        label: "Daily",
+                        data : daily,
                         borderColor : '#f4b400',
                         fill : false,
                         pointRadius : pointRadius
-                    }
+                    },
                 ]
             },
             options : {
