@@ -1,6 +1,5 @@
 import React from 'react';
 import Charts from './Charts';
-import Today from './Today';
 import { Container, Row, Col } from 'react-bootstrap';
 
 function CountryData(props) {

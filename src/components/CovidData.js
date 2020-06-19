@@ -1,6 +1,6 @@
 import React from 'react';
 import CountryData from './CountryData';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import SelectBox from './SelectBox';
 import predictions from '../data/predictions.json';
 
