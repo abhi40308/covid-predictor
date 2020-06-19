@@ -2,6 +2,7 @@ import React from 'react';
 import CountryData from './CountryData';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import SelectBox from './SelectBox';
+import predictions from '../data/predictions.json';
 
 export default class CovidData extends React.Component {
   constructor() {
@@ -11,7 +12,7 @@ export default class CovidData extends React.Component {
       data: {},
       worldStats: {},
       selectedCounty: '',
-      predictions: []
+      predictions: {}
     };
     this.getData = this.getData.bind(this);
     this.backToGlobalNumbers = this.backToGlobalNumbers.bind(this);
@@ -53,9 +54,11 @@ export default class CovidData extends React.Component {
           countryArr: countryArr,
           data: data,
           worldStats: worldStats,
-          worldChart: worldChart
+          worldChart: worldChart,
+          predictions: predictions
         });
       });
+    console.log('predictions: ', predictions);
   }
 
   getData(event) {
@@ -78,25 +81,24 @@ export default class CovidData extends React.Component {
   }
   render() {
     const countryStats = this.state.data[this.state.selectedCountry];
-    const countryPredictions = this.state.predictions;
+    const countryPredictions = this.state.predictions[
+      this.state.selectedCountry
+    ];
     const worldChart = this.state.worldChart;
     const lastUpdated =
       worldChart !== undefined ? worldChart[worldChart.length - 1].date : '';
-    
+
     return (
       <Container
         fluid
         style={{ backgroundColor: '#f8f8ff', padding: 0 }}
         className='App'
       >
-        {/*Header starts here */}
         <Row className='App-header'>
           <Col md={12} className='App-title'>
             Covid Predictor
           </Col>
-          {/*Select Box for country search ends here */}
         </Row>
-        {/*Header ends here */}
         <Row>
           <Col md={{ span: 6 }}>
             <SelectBox
@@ -113,10 +115,12 @@ export default class CovidData extends React.Component {
           {this.state.selectedCountry ? (
             <CountryData
               stats={countryStats}
+              predictions={countryPredictions}
               selectedCountry={this.state.selectedCountry}
             />
           ) : (
-            <CountryData stats={worldChart} selectedCountry='Global' />
+            <p>Select a country</p>
+            // <CountryData stats={worldChart} selectedCountry='Global' />
           )}
         </Container>
       </Container>
